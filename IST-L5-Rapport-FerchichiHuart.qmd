@@ -1,0 +1,13 @@
+---
+title: "IST - Lab 05: Serverless data ingestion and processing"
+author: "Farouk Ferchichi & Hugo Huart"
+format:
+    pdf:
+        geometry:
+            margin=1.5cm
+---
+
+# IST - LAB 05 : Serverless data ingestion and processing
+
+**Farouk Ferchichi & Hugo Huart**
+
