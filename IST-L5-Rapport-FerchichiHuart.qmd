@@ -11,3 +11,39 @@ format:
 
 **Farouk Ferchichi & Hugo Huart**
 
+# Task 1: Explore MeteoSwiss data
+
+## _For the two data products copy the URLs where the data can be downloaded in the report_
+
+For "Automatic weather stations – Current measurement values" the URL is 
+https://data.geo.admin.ch/ch.meteoschweiz.messwerte-aktuell/VQHA80.csv
+
+For "Weather stations of the automatic monitoring network" the URL is
+https://data.geo.admin.ch/ch.meteoschweiz.messnetz-automatisch/ch.meteoschweiz.messnetz-automatisch_en.json
+
+## _Document your exploration of the measurement values_
+
+### Nearby weather station
+
+The closest weather station to where I live is the Vevey/Corseaux station. Its 3 letters ID is `VEV`.
+
+### Temperature column
+
+According to the data description provided at the URL https://data.geo.admin.ch/ch.meteoschweiz.messwerte-aktuell/info/VQHA80_en.txt,
+the column `tre200s0` corresponds to the temperature in °C 2 meters above ground
+
+### Current temperature
+
+The temperature is 9.9°C.
+
+### Comparison with MétéoSuisse
+
+Yes, it corresponds with the temperature shown by MétéoSuisse on the app.
+
+### Date column
+
+It contains the date and time of the measurement with format YYYYMMDDHHmm, in UTC time (not CET).
+The minutes are a multiple of 10 minutes (00, 10, 20, etc.)
+
+# Task 2: Upload the current measurement data to S3 and run SQL queries on it
+

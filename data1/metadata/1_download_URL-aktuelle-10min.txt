@@ -1,0 +1,28 @@
+
+*******************************************************************************************************************************************************************
+Automatische Wetterstationen - Stations météorologiques automatiques - Stazioni meteorologiche automatiche - Automatic weather stations
+14 Parameters
+
+Download URL         	https://data.geo.admin.ch/ch.meteoschweiz.messwerte-aktuell/VQHA80.csv    
+
+Dateiaufbau		https://data.geo.admin.ch/ch.meteoschweiz.messwerte-aktuell/info/VQHA80_de.txt
+Déscription du fichier	https://data.geo.admin.ch/ch.meteoschweiz.messwerte-aktuell/info/VQHA80_fr.txt
+Descrizione del file	https://data.geo.admin.ch/ch.meteoschweiz.messwerte-aktuell/info/VQHA80_it.txt
+File description	https://data.geo.admin.ch/ch.meteoschweiz.messwerte-aktuell/info/VQHA80_en.txt
+
+
+
+
+*******************************************************************************************************************************************************************
+Automatische Niederschlagsmessstationen – Stations pluviométriques automatiques – Stazioni pluviometriche automatiche – Automatic precipitation monitoring stations
+1 Parameter - Additional Stations
+
+Download URL		https://data.geo.admin.ch/ch.meteoschweiz.messwerte-aktuell/VQHA98.csv    
+
+Dateiaufbau 		https://data.geo.admin.ch/ch.meteoschweiz.messwerte-aktuell/info/VQHA98_de.txt
+Déscription du fichier	https://data.geo.admin.ch/ch.meteoschweiz.messwerte-aktuell/info/VQHA98_fr.txt
+Descrizione del file	https://data.geo.admin.ch/ch.meteoschweiz.messwerte-aktuell/info/VQHA98_it.txt
+File description	https://data.geo.admin.ch/ch.meteoschweiz.messwerte-aktuell/info/VQHA98_en.txt
+
+
+
