@@ -138,13 +138,7 @@ It was successfully tested.
 
 # Task 5: Create an event rule that triggers your function every 10 minutes
 
-Unfortunately the event rule could not be created because of the following error message:
-
-```
-User: arn:aws:iam::058258612171:user/hugo.huart is not authorized to perform: scheduler:CreateSchedule on resource: arn:aws:scheduler:us-east-1:058258612171:schedule/default/MeteoswissIngestGrHFerchichiHuart because no identity-based policy allows the scheduler:CreateSchedule action
-```
-
-A role with a single policy permitting Lambda functions invocation was created for it.
+A 10-minutes schedule named `MeteoswissIngestGrHFerchichiHuart` was created.
 
 # Task 6: transform the weather stations file into a csv file
 
@@ -162,6 +156,21 @@ The `station_name` keys
 Here's the final JQ command:
 
 ```bash
-jq -j '.features|.[]|"\"",.id,"\"",",",.properties.station_name,",",.properties.altitude,",",.geometry.coordinates[0],",",.geometry.coordinates[1],"\n"'
+jq -j '.features|.[]|.id,",\"",.properties.station_name,"\",",.properties.altitude,",",.geometry.coordinates[0],",",.geometry.coordinates[1],"\n"'
 ```
 
+# Task 7: Query the accumulated data
+
+## All Payerne measurements
+
+```sql
+SELECT * FROM "meteoswiss_grh"."current"
+WHERE station = 'PAY'
+ORDER BY datetime ASC
+```
+
+## Hourly Payerne measurements
+
+```sql
+
+```
