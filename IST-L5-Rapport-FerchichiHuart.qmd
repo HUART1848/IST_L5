@@ -47,3 +47,49 @@ The minutes are a multiple of 10 minutes (00, 10, 20, etc.)
 
 # Task 2: Upload the current measurement data to S3 and run SQL queries on it
 
+A bucket was created with name `ist-meteo-grh-ferchichi-huart`.
+
+A database with name `meteoswiss_grh` was created.
+
+The `current` table was created, with the additional SerDe option `skip.header.line.count` set to 1 to prevent
+the inclusion of original the header in the table.
+
+# Task 3: Write a python script to download the current measurement values from MeteoSwiss and upload them to S3
+
+Here's the Python script used:
+
+```python
+import boto3
+import requests
+
+BUCKET="ist-meteo-grh-ferchichi-huart"
+KEY="current/VQHA80.csv"
+
+CSV_URL = "https://data.geo.admin.ch/ch.meteoschweiz.messwerte-aktuell/VQHA80.csv"
+
+def fetch_csv(url:str=CSV_URL) -> bytes:
+    return requests.get(url).content
+
+def upload_to_s3(csv_data:bytes, bucket_name:str, key:str):
+    s3 = boto3.resource("s3")
+    obj = s3.Object(bucket_name, key)
+    obj.put(Body=csv_data)
+
+def main():
+    csv_data = fetch_csv()
+    upload_to_s3(csv_data, BUCKET, KEY)
+
+if __name__ == "__main__":
+    main()
+```
+
+The script was tested successfully
+
+# Task 4: Convert your script into an AWS Lambda function for data ingestion
+
+The following entities were created:
+
+* A Lambda function named `meteoswiss-ingest-grh`
+* An IAM policy named `meteoswiss-grh-write` with `PutObject` permission on the S3 bucket.
+
+The policy was assigned to the Lambda role.
