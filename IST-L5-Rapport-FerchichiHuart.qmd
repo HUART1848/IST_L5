@@ -92,4 +92,76 @@ The following entities were created:
 * A Lambda function named `meteoswiss-ingest-grh`
 * An IAM policy named `meteoswiss-grh-write` with `PutObject` permission on the S3 bucket.
 
-The policy was assigned to the Lambda role.
+The policy was assigned to the Lambda role. Then an .zip upload package was created with the Lambda handler script and the `requests` package.
+
+Here's the handler script code:
+
+```python
+import os
+import datetime
+import boto3
+import json
+import requests
+
+BUCKET="ist-meteo-grh-ferchichi-huart"
+KEY="current/VQHA80.csv"
+
+CSV_URL = "https://data.geo.admin.ch/ch.meteoschweiz.messwerte-aktuell/VQHA80.csv"
+
+def fetch_csv(url:str=CSV_URL) -> bytes:
+    return requests.get(url).content
+
+def upload_to_s3(csv_data:bytes, bucket_name:str, key:str):
+    s3 = boto3.resource("s3")
+    obj = s3.Object(bucket_name, key)
+    obj.put(Body=csv_data)
+
+def timestamp_key(key:str) -> str:
+    now = datetime.datetime.utcnow().isoformat()
+    key = os.path.splitext(key)[0]
+    return f"{key}-{now}.csv"
+    
+def main():
+    csv_data = fetch_csv()
+    key = timestamp_key(KEY)
+    upload_to_s3(csv_data, BUCKET, key)
+
+def lambda_handler(event, context):
+    main()
+    return {
+        'statusCode': 200,
+        'body': json.dumps('')
+    }
+```
+
+It was successfully tested.
+
+# Task 5: Create an event rule that triggers your function every 10 minutes
+
+Unfortunately the event rule could not be created because of the following error message:
+
+```
+User: arn:aws:iam::058258612171:user/hugo.huart is not authorized to perform: scheduler:CreateSchedule on resource: arn:aws:scheduler:us-east-1:058258612171:schedule/default/MeteoswissIngestGrHFerchichiHuart because no identity-based policy allows the scheduler:CreateSchedule action
+```
+
+A role with a single policy permitting Lambda functions invocation was created for it.
+
+# Task 6: transform the weather stations file into a csv file
+
+## _Examine the YAML. There are two top-level keys, what are their names?_
+
+There are several top level keys, which are `crs`, `license`, `mapname`, `map_long_name`, `map_short_name`, `map_abstract`, `creation_time`,
+`type` and finally `features` which is an array.
+
+## _What key contains the station name?_
+
+The `station_name` keys
+
+## Final jq command
+
+Here's the final JQ command:
+
+```bash
+jq -j '.features|.[]|"\"",.id,"\"",",",.properties.station_name,",",.properties.altitude,",",.geometry.coordinates[0],",",.geometry.coordinates[1],"\n"'
+```
+

@@ -1,6 +1,6 @@
-import os
 import datetime
 import boto3
+import json
 import requests
 
 BUCKET="ist-meteo-grh-ferchichi-huart"
@@ -20,11 +20,15 @@ def timestamp_key(key:str) -> str:
     now = datetime.datetime.utcnow().isoformat()
     key = os.path.splitext(key)[0]
     return f"{key}-{now}.csv"
-
+    
 def main():
     csv_data = fetch_csv()
     key = timestamp_key(KEY)
     upload_to_s3(csv_data, BUCKET, key)
 
-if __name__ == "__main__":
+def lambda_handler(event, context):
     main()
+    return {
+        'statusCode': 200,
+        'body': json.dumps('')
+    }
